@@ -16,7 +16,7 @@ class _LoginScreenState extends State<LoginScreen> {
         child: Column(
           children: [
             Image.asset(
-              'assets/images/login.png',
+              'assets/images/login2.png',
               fit: BoxFit.cover,
             ),
             const SizedBox(
@@ -71,37 +71,40 @@ class _LoginScreenState extends State<LoginScreen> {
                   //     style: TextStyle(fontSize: 20),
                   //   ),
                   // ),
-                  InkWell(
-                    onTap: () async {
-                      setState(() {
-                        changeButton = true;
-                      });
-                      await Future.delayed(const Duration(seconds: 1));
-                      // ignore: use_build_context_synchronously
-                      Navigator.pushNamed(context, '/home_screen');
-                    },
-                    child: AnimatedContainer(
-                      duration: const Duration(seconds: 1),
-                      width: changeButton ? 50 : 110,
-                      height: 40,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        borderRadius:
-                            BorderRadius.circular(changeButton ? 50 : 8),
-                      ),
-                      child: changeButton
-                          ? const Icon(
-                              Icons.done,
-                              color: Colors.white,
-                            )
-                          : const Text(
-                              'login',
-                              style: TextStyle(
+
+                  Material(
+                    color: Colors.deepPurple,
+                    borderRadius: BorderRadius.circular(changeButton ? 50 : 8),
+                    child: InkWell(
+                      onTap: () async {
+                        setState(() {
+                          changeButton = true;
+                        });
+                        await Future.delayed(const Duration(seconds: 1));
+                        // ignore: use_build_context_synchronously
+                        await Navigator.pushNamed(context, '/home_screen');
+                        setState(() {
+                          changeButton = false;
+                        });
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(seconds: 1),
+                        width: changeButton ? 50 : 110,
+                        height: 40,
+                        alignment: Alignment.center,
+                        child: changeButton
+                            ? const Icon(
+                                Icons.done,
                                 color: Colors.white,
-                                fontSize: 20,
+                              )
+                            : const Text(
+                                'login',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
                               ),
-                            ),
+                      ),
                     ),
                   ),
                 ],

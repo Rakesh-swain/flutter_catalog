@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import './widgets/themes.dart';
 import './screens/login_screen.dart';
 import './screens/home_screen.dart';
 
@@ -12,13 +12,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Catalog App',
       themeMode: ThemeMode.light,
-      // darkTheme:
-      //     ThemeData(brightness: Brightness.light, primarySwatch: Colors.green),
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        fontFamily: GoogleFonts.lato().fontFamily,
-      ),
-      //initialRoute: '/',
+      theme: MyTheme.lightTheme(context),
+      darkTheme: MyTheme.darkTheme(context),
       routes: {
         '/home_screen': (context) => HomeScreen(),
         '/': (context) => LoginScreen(),

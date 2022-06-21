@@ -36,6 +36,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
+
               ? GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
@@ -72,7 +73,6 @@ class _HomeScreenState extends State<HomeScreen> {
                         ));
                   },
                   itemCount: CatalogModel.items.length,
-                )
               : const Center(
                   child: CircularProgressIndicator(),
                 )),

@@ -1,9 +1,11 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../widgets/item_widget.dart';
+import 'package:velocity_x/velocity_x.dart';
+import '../widgets/themes.dart';
 import '../models/catalog.dart';
-import 'dart:convert';
-import '../widgets/drawer.dart';
+import '../widgets/home_widgets/catalog_header.dart';
+import '../widgets/home_widgets/catalog_list.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -32,51 +34,22 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Catalog App')),
-      body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
-              ? GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 15,
-                    crossAxisSpacing: 15,
-                  ),
-                  itemBuilder: (context, index) {
-                    final item = CatalogModel.items[index];
-                    return Card(
-                        clipBehavior: Clip.antiAlias,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        child: GridTile(
-                          header: Container(
-                              padding: const EdgeInsets.all(12),
-                              decoration: const BoxDecoration(
-                                color: Colors.deepPurple,
-                              ),
-                              child: Text(
-                                item.name,
-                                style: const TextStyle(color: Colors.white),
-                              )),
-                          footer: Container(
-                            padding: const EdgeInsets.all(12),
-                            decoration: const BoxDecoration(
-                              color: Colors.black,
-                            ),
-                            child: Text(
-                              item.price.toString(),
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          ),
-                          child: Image.network(item.image),
-                        ));
-                  },
-                  itemCount: CatalogModel.items.length,
-                )
-              : const Center(
-                  child: CircularProgressIndicator(),
-                )),
-      drawer: MyDrawer(),
+      backgroundColor: MyTheme.creamColor,
+      body: SafeArea(
+        child: Container(
+          padding: Vx.m32,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              CatalogHeader(),
+              if (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
+                CatalogList().expand()
+              else
+                const CircularProgressIndicator().centered().py16().expand(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

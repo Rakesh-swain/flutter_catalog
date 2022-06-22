@@ -10,9 +10,9 @@ class HomeDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(backgroundColor: Colors.transparent),
-      backgroundColor: MyTheme.creamColor,
+      backgroundColor: context.canvasColor,
       bottomNavigationBar: Container(
-        color: Colors.white,
+        color: context.cardColor,
         child: ButtonBar(
           alignment: MainAxisAlignment.spaceBetween,
           buttonPadding: EdgeInsets.zero,
@@ -21,8 +21,8 @@ class HomeDetailScreen extends StatelessWidget {
             ElevatedButton(
                     onPressed: () {},
                     style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all(MyTheme.darkBluishColor),
+                        backgroundColor: MaterialStateProperty.all(
+                            context.theme.buttonColor),
                         shape: MaterialStateProperty.all(StadiumBorder())),
                     child: "Add to Cart".text.make())
                 .wh(120, 50),
@@ -44,12 +44,9 @@ class HomeDetailScreen extends StatelessWidget {
               edge: VxEdge.TOP,
               child: Container(
                 width: context.screenWidth,
-                color: Colors.white,
+                color: context.cardColor,
                 child: Column(children: [
-                  catalog.name.text.xl4
-                      .color(MyTheme.darkBluishColor)
-                      .bold
-                      .make(),
+                  catalog.name.text.xl4.color(context.accentColor).bold.make(),
                   catalog.desc.text.xl.textStyle(context.captionStyle).make(),
                   10.heightBox,
                   "If you are experimental and love installing custom ROMs and mods, it is prudent to select a device that the developer community fancy. Before you make a choice, you may want to consider its average screen-on time and standby time."

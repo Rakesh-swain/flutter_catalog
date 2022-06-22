@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_catalog/screens/home_detail_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../models/catalog.dart';
 import '../themes.dart';
@@ -12,8 +13,14 @@ class CatalogList extends StatelessWidget {
       itemCount: CatalogModel.items.length,
       itemBuilder: (context, index) {
         final catalog = CatalogModel.items[index];
-        return CatalogItem(
-          catalogs: catalog,
+        return InkWell(
+          onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => HomeDetailScreen(catalog: catalog))),
+          child: CatalogItem(
+            catalogs: catalog,
+          ),
         );
       },
     );
@@ -29,7 +36,9 @@ class CatalogItem extends StatelessWidget {
     return VxBox(
       child: Row(
         children: [
-          CatalogImage(image: catalogs.image),
+          Hero(
+              tag: Key(catalogs.id.toString()),
+              child: CatalogImage(image: catalogs.image)),
           Expanded(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

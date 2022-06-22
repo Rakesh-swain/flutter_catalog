@@ -9,16 +9,60 @@ class HomeDetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor: Colors.transparent),
       backgroundColor: MyTheme.creamColor,
+      bottomNavigationBar: Container(
+        color: Colors.white,
+        child: ButtonBar(
+          alignment: MainAxisAlignment.spaceBetween,
+          buttonPadding: EdgeInsets.zero,
+          children: [
+            "\$${catalog.price}".text.bold.xl4.red800.make(),
+            ElevatedButton(
+                    onPressed: () {},
+                    style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all(MyTheme.darkBluishColor),
+                        shape: MaterialStateProperty.all(StadiumBorder())),
+                    child: "Buy".text.make())
+                .wh(100, 46),
+          ],
+        ).p16(),
+      ),
       body: SafeArea(
+        bottom: false,
         child: Column(
           children: [
             Hero(
-                tag: Key(catalog.id.toString()),
-                child: Image.network(catalog.image)),
+                    tag: Key(catalog.id.toString()),
+                    child: Image.network(catalog.image))
+                .h32(context),
+            Expanded(
+                child: VxArc(
+              height: 30.0,
+              arcType: VxArcType.CONVEY,
+              edge: VxEdge.TOP,
+              child: Container(
+                width: context.screenWidth,
+                color: Colors.white,
+                child: Column(children: [
+                  catalog.name.text.xl4
+                      .color(MyTheme.darkBluishColor)
+                      .bold
+                      .make(),
+                  catalog.desc.text.xl.textStyle(context.captionStyle).make(),
+                  10.heightBox,
+                  "If you are experimental and love installing custom ROMs and mods, it is prudent to select a device that the developer community fancy. Before you make a choice, you may want to consider its average screen-on time and standby time."
+                      .text
+                      .textStyle(context.captionStyle)
+                      .align(TextAlign.justify)
+                      .make()
+                      .p16(),
+                ]).py64(),
+              ),
+            )),
           ],
-        ).p16(),
+        ),
       ),
     );
   }

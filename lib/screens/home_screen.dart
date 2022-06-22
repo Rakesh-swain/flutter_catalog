@@ -43,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
             children: [
               CatalogHeader(),
               if (CatalogModel.items != null && CatalogModel.items.isNotEmpty)
-                CatalogList().expand()
+                CatalogList().py16().expand()
               else
                 const CircularProgressIndicator().centered().py16().expand(),
             ],

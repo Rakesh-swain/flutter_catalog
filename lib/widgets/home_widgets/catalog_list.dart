@@ -3,6 +3,7 @@ import 'package:flutter_catalog/screens/home_detail_screen.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../models/catalog.dart';
 import './catalog_image.dart';
+import 'add_to_cart.dart';
 
 class CatalogList extends StatelessWidget {
   @override
@@ -51,13 +52,7 @@ class CatalogItem extends StatelessWidget {
                 buttonPadding: EdgeInsets.zero,
                 children: [
                   "\$${catalogs.price}".text.bold.xl.make(),
-                  ElevatedButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              context.theme.buttonColor),
-                          shape: MaterialStateProperty.all(StadiumBorder())),
-                      child: "Add to Cart".text.make()),
+                  AddToCart(catalog: catalogs),
                 ],
               ).pOnly(right: 10.0)
             ],

@@ -1,13 +1,19 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
-import 'dart:ffi';
 
 class CatalogModel {
   static List<Item> items = [];
+
+  // Get Item by ID
+  static Item getById(int id) {
+    return items.firstWhere((element) => element.id == id);
+  }
+
+  // Get Item by position
+  static Item getByPosition(int pos) => items[pos];
 }
 
 class Item {
-  final String id;
+  final int id;
   final String name;
   final String desc;
   final num price;
@@ -23,7 +29,7 @@ class Item {
       required this.image});
 
   Item copyWith({
-    String? id,
+    int? id,
     String? name,
     String? desc,
     num? price,
@@ -53,7 +59,7 @@ class Item {
 
   factory Item.fromMap(Map<String, dynamic> map) {
     return Item(
-      id: map['id'].toString(),
+      id: map['id'],
       name: map['name'],
       desc: map['desc'],
       price: map['price'],

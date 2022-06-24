@@ -27,7 +27,7 @@ class CartTotal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 200,
+      height: 100,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -35,7 +35,7 @@ class CartTotal extends StatelessWidget {
               builder: (context, _, s) {
                 return "\$${_cart!.totalPrice}"
                     .text
-                    .xl5
+                    .size(40)
                     .color(context.theme.accentColor)
                     .make();
               },

@@ -5,10 +5,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_catalog/models/cart.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../core/store.dart';
-import '../widgets/themes.dart';
 import '../models/catalog.dart';
 import '../widgets/home_widgets/catalog_header.dart';
 import '../widgets/home_widgets/catalog_list.dart';
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -16,6 +16,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final url = Uri.parse(
+      "https://catalog-19564-default-rtdb.asia-southeast1.firebasedatabase.app/.json");
   @override
   void initState() {
     super.initState();
@@ -24,8 +26,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void loadData() async {
     await Future.delayed(const Duration(seconds: 2));
-    final catalogJson =
-        await rootBundle.loadString("assets/files/catalog.json");
+    // final catalogJson =
+    //     await rootBundle.loadString("assets/files/catalog.json");
+    final response = await http.get(url);
+    final catalogJson = response.body;
+    print(catalogJson);
     final decodedData = json.decode(catalogJson);
     var productsData = decodedData["products"];
     CatalogModel.items = List.from(productsData)

@@ -8,22 +8,43 @@ import 'add_to_cart.dart';
 class CatalogList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      shrinkWrap: true,
-      itemCount: CatalogModel.items.length,
-      itemBuilder: (context, index) {
-        final catalog = CatalogModel.items[index];
-        return InkWell(
-          onTap: () => Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => HomeDetailScreen(catalog: catalog))),
-          child: CatalogItem(
-            catalogs: catalog,
-          ),
-        );
-      },
-    );
+    return !context.isMobile
+        ? GridView.builder(
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2, crossAxisSpacing: 20),
+            shrinkWrap: true,
+            itemCount: CatalogModel.items.length,
+            itemBuilder: (context, index) {
+              final catalog = CatalogModel.items[index];
+              return InkWell(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            HomeDetailScreen(catalog: catalog))),
+                child: CatalogItem(
+                  catalogs: catalog,
+                ),
+              );
+            },
+          )
+        : ListView.builder(
+            shrinkWrap: true,
+            itemCount: CatalogModel.items.length,
+            itemBuilder: (context, index) {
+              final catalog = CatalogModel.items[index];
+              return InkWell(
+                onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) =>
+                            HomeDetailScreen(catalog: catalog))),
+                child: CatalogItem(
+                  catalogs: catalog,
+                ),
+              );
+            },
+          );
   }
 }
 
@@ -33,32 +54,37 @@ class CatalogItem extends StatelessWidget {
   CatalogItem({required this.catalogs});
   @override
   Widget build(BuildContext context) {
-    return VxBox(
-      child: Row(
+    var children2 = [
+      Hero(
+          tag: Key(catalogs.id.toString()),
+          child: CatalogImage(image: catalogs.image)),
+      Expanded(
+          child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Hero(
-              tag: Key(catalogs.id.toString()),
-              child: CatalogImage(image: catalogs.image)),
-          Expanded(
-              child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
+          catalogs.name.text.lg.color(context.accentColor).bold.make(),
+          catalogs.desc.text.textStyle(context.captionStyle).make(),
+          10.heightBox,
+          ButtonBar(
+            alignment: MainAxisAlignment.spaceBetween,
+            buttonPadding: EdgeInsets.zero,
             children: [
-              catalogs.name.text.lg.color(context.accentColor).bold.make(),
-              catalogs.desc.text.textStyle(context.captionStyle).make(),
-              10.heightBox,
-              ButtonBar(
-                alignment: MainAxisAlignment.spaceBetween,
-                buttonPadding: EdgeInsets.zero,
-                children: [
-                  "\$${catalogs.price}".text.bold.xl.make(),
-                  AddToCart(catalog: catalogs),
-                ],
-              ).pOnly(right: 10.0)
+              "\$${catalogs.price}".text.bold.xl.make(),
+              AddToCart(catalog: catalogs),
             ],
-          ))
+          ).pOnly(right: 10.0)
         ],
-      ),
+      ).p(context.isMobile ? 0 : 16))
+    ];
+    return VxBox(
+      child: context.isMobile
+          ? Row(
+              children: children2,
+            )
+          : Column(
+              children: children2,
+            ),
     ).color(context.cardColor).rounded.square(150).make().py16();
   }
 }

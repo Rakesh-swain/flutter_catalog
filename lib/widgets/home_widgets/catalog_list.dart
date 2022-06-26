@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_catalog/screens/home_detail_screen.dart';
+import 'package:flutter_catalog/utils/routes.dart';
 import 'package:velocity_x/velocity_x.dart';
 import '../../models/catalog.dart';
 import './catalog_image.dart';
@@ -17,11 +18,12 @@ class CatalogList extends StatelessWidget {
             itemBuilder: (context, index) {
               final catalog = CatalogModel.items[index];
               return InkWell(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            HomeDetailScreen(catalog: catalog))),
+                onTap: () => context.vxNav.push(
+                  Uri(
+                      path: MyRoutes.homeDetailsRoute,
+                      queryParameters: {"id": catalog.id.toString()}),
+                  params: catalog,
+                ),
                 child: CatalogItem(
                   catalogs: catalog,
                 ),
@@ -34,11 +36,12 @@ class CatalogList extends StatelessWidget {
             itemBuilder: (context, index) {
               final catalog = CatalogModel.items[index];
               return InkWell(
-                onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) =>
-                            HomeDetailScreen(catalog: catalog))),
+                onTap: () => context.vxNav.push(
+                  Uri(
+                      path: MyRoutes.homeDetailsRoute,
+                      queryParameters: {"id": catalog.id.toString()}),
+                  params: catalog,
+                ),
                 child: CatalogItem(
                   catalogs: catalog,
                 ),

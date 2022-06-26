@@ -30,7 +30,6 @@ class _HomeScreenState extends State<HomeScreen> {
     //     await rootBundle.loadString("assets/files/catalog.json");
     final response = await http.get(url);
     final catalogJson = response.body;
-    print(catalogJson);
     final decodedData = json.decode(catalogJson);
     var productsData = decodedData["products"];
     CatalogModel.items = List.from(productsData)
@@ -47,7 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
       floatingActionButton: VxBuilder(
         mutations: const {AddMutation, RemoveMutation},
         builder: (ctx, _, s) => FloatingActionButton(
-          onPressed: () => Navigator.pushNamed(context, '/cart'),
+          onPressed: () => context.vxNav.push(Uri.parse('/cart')),
           backgroundColor: context.theme.buttonColor,
           child: const Icon(
             CupertinoIcons.cart,

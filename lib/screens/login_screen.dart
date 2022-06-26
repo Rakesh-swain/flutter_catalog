@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_catalog/utils/routes.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -16,8 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
         changeButton = true;
       });
       await Future.delayed(const Duration(seconds: 1));
-      // ignore: use_build_context_synchronously
-      await Navigator.pushNamed(context, '/home_screen');
+      await context.vxNav.push(Uri.parse(MyRoutes.homeRoute));
       setState(() {
         changeButton = false;
       });
